@@ -1,0 +1,42 @@
+﻿@using System.ComponentModel;
+@implements IDisposable
+@typeparam TViewModel where TViewModel : IViewModel
+
+<CascadingValue Value="ViewModel" Name="@(string.IsNullOrEmpty(Name) ? nameof(ViewModel) : Name)">
+    @if (ChildContent != null && ViewModel != null)
+    {
+        @ChildContent(ViewModel)
+    }    
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public required TViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public string? Name { get; set; }
+
+    [Parameter]
+    public RenderFragment<TViewModel>? ChildContent { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        if (ViewModel != null)
+        {
+            ViewModel.PropertyChanged += OnPropertyChangedHandler;
+        }
+        return base.OnInitializedAsync();
+    }
+
+    private async void OnPropertyChangedHandler(object? sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+    public void Dispose()
+    {
+        if (ViewModel != null)
+            ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+    }
+}
+

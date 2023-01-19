@@ -1,0 +1,33 @@
+﻿<div class="grow flex items-stretch gap-x-4">
+    <div class="w-8 h-8 fill-gray-300">
+        @if(iconType != null)
+        {
+            <DynamicComponent Type="iconType" />
+        }        
+    </div>
+
+    <span class="@($"text-base font-medium {(MenuIsOpen ? string.Empty : "hidden")} durantion-200")">
+        @Title  
+    </span>
+</div>
+
+@code {
+    private Type? iconType = null!;
+
+    [Parameter]
+    public required string Icon { get; set; }
+
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public bool MenuIsOpen { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Icon))
+            iconType = Type.GetType(Icon);
+
+        return Task.CompletedTask;
+    }
+}

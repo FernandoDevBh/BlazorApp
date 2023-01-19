@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+
+.validation-message {
+    @apply mt-2 text-red-500 text-xs italic;
+}
+
+.paginator {
+    @apply border-t border-indigo-700;
+}
+
+@tailwind utilities;

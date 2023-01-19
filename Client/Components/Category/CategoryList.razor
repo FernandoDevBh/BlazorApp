@@ -1,0 +1,55 @@
+﻿<DeleteConfirmation
+    IsActive="CategoriesVM.ShowDeleteModal"
+    IsParentComponentProcessing="CategoriesVM.IsLoading"
+    ConfirmationChanged="CategoriesVM.DeleteConfirmation"
+/>
+
+<div class="w-full mb-8 overflow-hidden flex items-center">
+    <div class="p-10 divide-y divide-indigo-700 flex-grow">
+        <div class="w-full">
+            <h4 class="text-2xl text-indigo-700 p-2">Collections List</h4>
+        </div>
+        <div class="p-2 grid grid-cols-1 gap-4">        
+            <NavLink href="category/create" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out max-w-[150px]">
+                <span>New Collection</span>
+            </NavLink>
+            @if (CategoriesVM.Categories.Any())
+            {
+                <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
+                    <TemplateColumn Title="Name" Class="flex gap-2">
+                        <img class="w-6 h-6" src="@context.Symbol">                        
+                        <span>@context.Name</span>
+                    </TemplateColumn>                    
+                    <TemplateColumn Title="Actions">
+                        <NavLink
+                            href="@($"category/edit/{context.Id}")"
+                            class="inline-block px-6 py-1 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
+                            Edit
+                        </NavLink>
+                        <button class="inline-block px-6 py-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                            @onclick="() => CategoriesVM.Delete(context.Id)">
+                            Delete
+                        </button>
+                    </TemplateColumn>
+                </QuickGrid>
+                <Paginator Value="@CategoriesVM.Pagination" />
+            }
+            else
+            {
+                if (CategoriesVM.IsLoading)
+                {
+                    <Loading Show="CategoriesVM.IsLoading" />
+                }
+                else
+                {
+                    <p>No records found!</p>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter(Name = "CategoriesVM")]
+    public ICategoryListViewModel CategoriesVM { get; set; } = null!;    
+}

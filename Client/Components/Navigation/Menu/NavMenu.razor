@@ -1,0 +1,10 @@
+﻿@using Client.Components.Navigation.Menu.ViewModel;
+@inject IMenuViewModel MenuViewModel
+
+<StateContainer ViewModel="MenuViewModel" Name="MenuViewModel">
+    <div class="@($"h-screen sticky top-0 bg-indigo-900 relative p-5 pt-10 duration-300 {(MenuViewModel.IsOpen ? "w-72" : "w-20")}")">
+        <ResizeMenu />
+        <Brand />
+        <MenuList />
+    </div>
+</StateContainer>

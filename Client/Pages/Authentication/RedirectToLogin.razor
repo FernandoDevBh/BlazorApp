@@ -1,0 +1,36 @@
+﻿@inject NavigationManager navigation
+
+@if (notAuthorized)
+{
+    <div>
+        <p>You do not have access to the requested page</p>
+    </div>
+}
+
+@code{
+    private bool notAuthorized = false;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;        
+        if(authState.User.Identity is null || !authState.User.Identity.IsAuthenticated)
+        {
+            var returnUrl = navigation.ToBaseRelativePath(navigation.Uri);
+            if(string.IsNullOrEmpty(returnUrl))
+            {
+                navigation.NavigateTo("login");
+            }
+            else
+            {
+                navigation.NavigateTo($"login?returnUrl={returnUrl}");
+            }
+        }
+        else
+        {
+            notAuthorized = true;
+        }
+    }
+}

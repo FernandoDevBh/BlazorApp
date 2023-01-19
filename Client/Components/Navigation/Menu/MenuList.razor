@@ -1,0 +1,29 @@
+﻿@using Client.Components.Navigation.Menu.ViewModel;
+
+@if(Menu.Items.Any())
+{
+    <ul class="ml-[-8px]">
+        <AuthorizeView>
+            <Authorized>
+                @foreach (var item in Menu.Items)
+                {
+                    <MenuLink Menu="item" />
+                }
+            </Authorized>
+            <NotAuthorized>
+                <li class="text-sm text-gray-300 p-2 hover:bg-light-white rounded-md mt-2 pr-9">
+                    <div class="flex items-center gap-x-4 ">
+                        <NavLink class="grow flex items-stretch gap-x-4" href="login">
+                            <IconWithName Icon="Client.Icons.BsPerson, Client.Icons" Title="Login" MenuIsOpen="@Menu.IsOpen" />
+                        </NavLink>
+                    </div>
+                </li>
+            </NotAuthorized>
+        </AuthorizeView>        
+    </ul>
+}
+
+@code {
+    [CascadingParameter(Name = "MenuViewModel")]
+    private IMenuViewModel Menu { get; set; } = null!;
+}

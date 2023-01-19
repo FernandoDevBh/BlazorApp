@@ -1,0 +1,41 @@
+﻿@using Client.Components.Navigation.Menu.ViewModel;
+
+<li class="text-sm text-gray-300 p-2 hover:bg-light-white rounded-md mt-2 pr-9">
+    <div class="flex items-center gap-x-4 ">
+        @if (Menu.HaveSubMenu)
+        {
+            <IconWithName Icon="@Menu.Item.Icon" Title="@Menu.Item.Title" MenuIsOpen="@Menu.MenuIsOpen" />
+
+            @if (Menu.MenuIsOpen)
+            {
+                <div class="@($@"cursor-pointer w-5 h-5 {(Menu.SubMenuIsOpen ? "rotate-180" : string.Empty)}")">
+                    <ChevronDown @onclick="() => Menu.SetOpen()" />
+                </div>
+            }
+        }
+        else
+        {
+            <NavLink class="grow flex items-stretch gap-x-4" href="@Menu.Item.NavigateTo">
+                <IconWithName Icon="@Menu.Item.Icon" Title="@Menu.Item.Title" MenuIsOpen="@Menu.MenuIsOpen" />                
+            </NavLink>      
+        }
+    </div>
+</li>
+
+@if (Menu.HaveSubMenu && Menu.SubMenuIsOpen && Menu.MenuIsOpen)
+{
+
+    @foreach (var subMenu in Menu.SubMenus)
+    {
+        <li class="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-6 hover:bg-light-white rounded-md">
+            <NavLink href="#">
+                @subMenu.Title
+            </NavLink>
+        </li>
+    }        
+}
+
+@code {
+    [Parameter]
+    public required IMenuItemViewModel Menu { get; set; } = null!;
+}

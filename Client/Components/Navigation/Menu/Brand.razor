@@ -1,0 +1,26 @@
+﻿@using Client.Components.Navigation.Menu.ViewModel;
+
+<div class="flex">
+    <div class="@($@"flex-none bg-amber-300 rounded p-1 cursor-pointer block ml-[-5px]")">
+        <div class="@($"w-9 h-9 {(Menu.IsOpen ? string.Empty : "rotate-[360deg] duration-500")}")">
+            <BarChartSquare />
+        </div>
+    </div>
+    <div class="grid place-items-center">
+        <p class="@($"ml-2 grow truncate text-white origin-left font-medium duration-300 {(!Menu.IsOpen ? "text-xs scale-0" : "text-2xl")}")">
+            Blazor App
+        </p>
+        <AuthorizeView>
+            <Authorized>
+                <p class="@($"text-white font-medium duration-300 {(!Menu.IsOpen ? "scale-0 hidden" : "text-xs")}")">
+                    Hello, @context?.User?.Identity?.Name
+                </p>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter(Name = "MenuViewModel")]
+    public IMenuViewModel Menu { get; set; } = null!;
+}

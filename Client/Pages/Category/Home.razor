@@ -1,0 +1,17 @@
+﻿@page "/category"
+
+@inject ICategoryListViewModel CategoriesVM
+
+<StateContainer ViewModel="CategoriesVM" Name="CategoriesVM">
+    <CategoryList />
+</StateContainer>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await CategoriesVM.LoadCategories();
+        }
+    }
+}
