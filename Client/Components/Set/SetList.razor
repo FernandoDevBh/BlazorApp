@@ -1,46 +1,35 @@
-﻿<DeleteConfirmation
-    IsActive="CategoriesVM.ShowDeleteModal"
-    IsParentComponentProcessing="CategoriesVM.IsLoading"
-    ConfirmationChanged="CategoriesVM.DeleteConfirmation"
-/>
-
-<div class="w-full mb-8 overflow-hidden flex items-center">
-    <div class="p-10 divide-y divide-indigo-700 flex-grow">
-        <div class="w-full">
-            <h4 class="text-2xl text-indigo-700 p-2">Sets List</h4>
-        </div>
-        <div class="p-2 grid grid-cols-1 gap-4">
-            <div class="w-28">
-                <Button primary IsLink="true" id="category-submit" type="submit" Label="New Set" href="set/create" />
-            </div>
-            @if (CategoriesVM.Categories.Any())
-            {
-                <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
-                    <TemplateColumn Title="Name" Class="flex gap-2">
-                        <img class="w-6 h-6" src="@context.Symbol">                        
-                        <span>@context.Name</span>
-                    </TemplateColumn>                    
-                    <TemplateColumn Title="Actions">
-                        <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
-                        <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
-                    </TemplateColumn>
-                </QuickGrid>
-                <Paginator Value="@CategoriesVM.Pagination" />
-            }
-            else
-            {
-                if (CategoriesVM.IsLoading)
-                {
-                    <Loading Show="CategoriesVM.IsLoading" />
-                }
-                else
-                {
-                    <p>No records found!</p>
-                }
-            }
-        </div>
-    </div>
-</div>
+﻿<DefaultHome
+    IsDeleteModalActive="CategoriesVM.ShowDeleteModal"
+    IsLoading="CategoriesVM.IsLoading"
+    ListName="Set List"
+    CreateHrf="set/create"
+    DeleteConfirmationChanged="CategoriesVM.DeleteConfirmation">
+    @if (CategoriesVM.Categories.Any())
+    {
+        <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
+            <TemplateColumn Title="Name" Class="flex gap-2">
+                <img class="w-6 h-6" src="@context.Symbol">
+                <span>@context.Name</span>
+            </TemplateColumn>
+            <TemplateColumn Title="Actions">
+                <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
+                <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
+            </TemplateColumn>
+        </QuickGrid>
+        <Paginator Value="@CategoriesVM.Pagination" />
+    }
+    else
+    {
+        if (CategoriesVM.IsLoading)
+        {
+            <Loading Show="CategoriesVM.IsLoading" />
+        }
+        else
+        {
+            <p>No records found!</p>
+        }
+    }
+</DefaultHome>
 
 @code {
     [CascadingParameter(Name = "CategoriesVM")]

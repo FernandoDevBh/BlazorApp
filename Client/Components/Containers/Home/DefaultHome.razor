@@ -1,0 +1,41 @@
+﻿<DeleteConfirmation IsActive="IsDeleteModalActive"
+                    IsParentComponentProcessing="IsLoading"
+                    ConfirmationChanged="DeleteConfirmationChanged" />
+
+<div class="w-full mb-8 overflow-hidden flex items-center">
+    <div class="p-10 divide-y divide-indigo-700 flex-grow">
+        <div class="w-full">
+            <h4 class="text-2xl text-indigo-700 p-2">@ListName</h4>
+        </div>
+        <div class="p-2 grid grid-cols-1 gap-4">
+            <div class="w-28">
+                <Button primary IsLink="true" id="category-submit" type="submit" Label="New Set" href="@CreateHrf" />
+            </div>
+            @if(ChildContent != null)
+            {
+                @ChildContent
+            }            
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public string ListName { get; set; } = string.Empty;
+
+    [Parameter]
+    public string CreateHrf { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool IsDeleteModalActive { get; set; } = false;
+
+    [Parameter]
+    public required EventCallback<bool> DeleteConfirmationChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+}

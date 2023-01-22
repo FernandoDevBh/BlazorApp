@@ -17,7 +17,8 @@ public class MenuService : IMenuService
             CreateMenuItem(title: "Inbox", icon: "AiOutlineMail"),
             CreateMenuItem(title: "Profile", icon: "BsPerson"),
             CreateMenuItem(title : "Settings", icon: "AiOutlineSetting"),
-            CreateMenuItem(title : "Logout", icon: "AiOutlineLogout", navigateTo: "logout"),*/
+            */
+            CreateMenuItem(title : "Logout", icon: "AiOutlineLogout", navigateTo: "logout"),
         };
     }
 
