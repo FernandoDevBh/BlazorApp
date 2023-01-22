@@ -1,0 +1,43 @@
+﻿@using System.Linq.Expressions
+
+@inherits InputBase<string>
+
+<div class="grid w-full">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label class="block mb-2 text-sm text-gray-600"for="@Id">@Label</label>
+    }
+    <input
+        class="w-full px-3 py-2 placeholder-gray-300
+               border border-gray-300 rounded-md
+               focus:outline-none focus:ring
+               focus:ring-indigo-100 focus:border-indigo-300
+               @CssClass"
+        id="@Id"
+        @bind="@CurrentValue" />
+    <div>
+        <ValidationMessage For="@ValidationFor" />
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Expression<Func<string>> ValidationFor { get; set; } = null!;
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    protected override bool TryParseValueFromString(string? value, out string result, out string validationErrorMessage)
+    {
+        result = string.Empty;
+
+        if (!string.IsNullOrEmpty(value))
+            result = value;
+
+        validationErrorMessage = string.Empty;
+        return true;
+    }    
+}

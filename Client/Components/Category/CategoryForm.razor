@@ -4,22 +4,12 @@
             <DataAnnotationsValidator />                
             <div class="mb-6 flex gap-4">
                 <div class="flex-grow">
-                    <label
-                        class="block mb-2 text-sm text-gray-600"
-                        for="name"
-                    >
-                        Name
-                    </label>
-                    <InputText
-                        @bind-Value="CategoryVM.Name"
-                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
-                    />
+                    <FormInput Id="name" ValidationFor="() => CategoryVM.Name" Label="Name" @bind-Value="CategoryVM.Name" />                    
                 </div>
                 @if (!string.IsNullOrEmpty(CategoryVM.Symbol))
                 {
                     <img class="w-12 h-12 mt-6" src="@CategoryVM.Symbol">
-                }
-                <ValidationMessage For="() => CategoryVM.Name" />
+                }                
             </div>
             <div class="mb-6">                
                 <label
@@ -33,12 +23,8 @@
                 />
             </div>
             <div class="col">
-                <button
-                    type="submit"
-                    class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
-                    @CategoryVM.Title
-                </button>
-                <NavLink href="category" class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Back to Index</NavLink>
+                <Button success id="category-submit" type="submit" Label="@CategoryVM.Title" />
+                <Button light IsLink="true" href="category" Label="Back to Index" />
             </div>
         </EditForm>
     </div>

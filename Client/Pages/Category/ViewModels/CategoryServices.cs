@@ -1,6 +1,4 @@
-﻿using Client.Components.Category.ViewModels;
-
-namespace Client.Components.Category;
+﻿namespace Client.Pages.Category.ViewModels;
 
 public static class CategoryServices
 {

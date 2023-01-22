@@ -1,7 +1,7 @@
 ﻿using Client.Containers.State;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Client.Components.Category.ViewModels;
+namespace Client.Pages.Category.ViewModels;
 
 public interface ICategoryViewModel : IViewModel
 {

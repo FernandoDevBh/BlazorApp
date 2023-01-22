@@ -1,0 +1,10 @@
+﻿@inherits ButtonBaseComponent
+
+@if (IsLink)
+{
+    <NavLink @attributes="InputAttributes" class="@GetCss()">@Label</NavLink>
+}
+else
+{
+    <button @attributes="InputAttributes" class="@GetCss()">@Label</button>
+}

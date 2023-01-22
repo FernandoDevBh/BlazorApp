@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 
-namespace Client.Components.Category.ViewModels;
+namespace Client.Pages.Category.ViewModels;
 
 public class CategoryViewModel : BaseViewModel, ICategoryViewModel
 {
@@ -16,13 +16,13 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
     private bool isLoading = false;
     private readonly IJSRuntime jsRuntime;
     private readonly ICategoryService categoryService;
-    private readonly NavigationManager navigationManager;   
+    private readonly NavigationManager navigationManager;
 
     public CategoryViewModel(ICategoryService categoryService, NavigationManager navigationManager, IJSRuntime jSRuntime)
     {
         this.categoryService = categoryService;
         this.navigationManager = navigationManager;
-        this.jsRuntime = jSRuntime;
+        jsRuntime = jSRuntime;
     }
 
     public int Id
@@ -85,14 +85,14 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
         try
         {
             var files = e.GetMultipleFiles()
-                         .Select(f => new { File = f, FileInfo = new System.IO.FileInfo(f.Name) });
+                         .Select(f => new { File = f, FileInfo = new FileInfo(f.Name) });
 
             if (files.Any())
             {
                 foreach (var item in files)
                 {
                     if (extensions.Contains(item.FileInfo.Extension.ToLower()))
-                    {                        
+                    {
                         IBrowserFile imgFile = item.File;
                         var buffers = new byte[imgFile.Size];
                         await imgFile.OpenReadStream().ReadAsync(buffers);
@@ -104,7 +104,7 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
                         await jsRuntime.ToastrError("Please select .jpg/ .jpeg/ .webp/ .png file only");
                     }
                 }
-            }            
+            }
         }
         catch (Exception exception)
         {
@@ -125,7 +125,7 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
             await categoryService.Update(new CategoryDTO { Id = Id, Name = Name, Symbol = Symbol });
             navigationManager.NavigateTo("category");
         }
-        await jsRuntime.ToastrSuccess("Collection added succesfully");
+        await jsRuntime.ToastrSuccess(string.Empty);
         IsLoading = false;
     }
 }

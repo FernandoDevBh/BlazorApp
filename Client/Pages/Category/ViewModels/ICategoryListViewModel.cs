@@ -1,7 +1,7 @@
 ﻿using Client.Containers.State;
 using Microsoft.AspNetCore.Components.QuickGrid;
 
-namespace Client.Components.Category.ViewModels
+namespace Client.Pages.Category.ViewModels
 {
     public interface ICategoryListViewModel : IViewModel
     {

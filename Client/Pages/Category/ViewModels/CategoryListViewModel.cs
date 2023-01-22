@@ -3,11 +3,11 @@ using Client.Services.Contracts;
 using Microsoft.AspNetCore.Components.QuickGrid;
 using Microsoft.JSInterop;
 
-namespace Client.Components.Category.ViewModels;
+namespace Client.Pages.Category.ViewModels;
 
 public class CategoryListViewModel : BaseViewModel, ICategoryListViewModel
 {
-    private bool isLoading = false;   
+    private bool isLoading = false;
     private int deleteCategoryId = 0;
     private bool showDeleteModal = false;
     private IQueryable<CategoryDTO> categories = new List<CategoryDTO>(0).AsQueryable();
@@ -57,7 +57,7 @@ public class CategoryListViewModel : BaseViewModel, ICategoryListViewModel
     public void Delete(int id)
     {
         deleteCategoryId = id;
-        ShowDeleteModal = true;        
+        ShowDeleteModal = true;
     }
 
     public async Task DeleteConfirmation(bool isConfirmed)
