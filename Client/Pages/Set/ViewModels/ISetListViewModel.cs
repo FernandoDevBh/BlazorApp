@@ -1,9 +1,9 @@
 ﻿using Client.Containers.State;
 using Microsoft.AspNetCore.Components.QuickGrid;
 
-namespace Client.Pages.Category.ViewModels
+namespace Client.Pages.Set.ViewModels
 {
-    public interface ICategoryListViewModel : IViewModel
+    public interface ISetListViewModel : IViewModel
     {
         IQueryable<CategoryDTO> Categories { get; }
         bool IsLoading { get; }

@@ -1,9 +1,9 @@
 ﻿using Client.Containers.State;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Client.Pages.Category.ViewModels;
+namespace Client.Pages.Set.ViewModels;
 
-public interface ICategoryViewModel : IViewModel
+public interface ISetViewModel : IViewModel
 {
     int Id { get; set; }
     bool IsLoading { get; set; }

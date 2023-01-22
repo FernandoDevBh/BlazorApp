@@ -2,11 +2,11 @@
 
 namespace Client.Services;
 
-public class CategoryService : ICategoryService
+public class SetService : ICategoryService
 {    
     private readonly HttpClient httpClient;
 
-    public CategoryService(HttpClient httpClient)
+    public SetService(HttpClient httpClient)
     {
         this.httpClient = httpClient;
     }

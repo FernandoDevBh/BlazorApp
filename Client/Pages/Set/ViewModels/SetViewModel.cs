@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 
-namespace Client.Pages.Category.ViewModels;
+namespace Client.Pages.Set.ViewModels;
 
-public class CategoryViewModel : BaseViewModel, ICategoryViewModel
+public class SetViewModel : BaseViewModel, ISetViewModel
 {
     private int id;
     private string symbol = string.Empty;
@@ -18,7 +18,7 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
     private readonly ICategoryService categoryService;
     private readonly NavigationManager navigationManager;
 
-    public CategoryViewModel(ICategoryService categoryService, NavigationManager navigationManager, IJSRuntime jSRuntime)
+    public SetViewModel(ICategoryService categoryService, NavigationManager navigationManager, IJSRuntime jSRuntime)
     {
         this.categoryService = categoryService;
         this.navigationManager = navigationManager;
@@ -117,14 +117,13 @@ public class CategoryViewModel : BaseViewModel, ICategoryViewModel
         IsLoading = true;
         if (Id == 0)
         {
-            await categoryService.Create(new CategoryDTO { Name = Name, Symbol = Symbol });
-            navigationManager.NavigateTo("category");
+            await categoryService.Create(new CategoryDTO { Name = Name, Symbol = Symbol });            
         }
         else
         {
-            await categoryService.Update(new CategoryDTO { Id = Id, Name = Name, Symbol = Symbol });
-            navigationManager.NavigateTo("category");
+            await categoryService.Update(new CategoryDTO { Id = Id, Name = Name, Symbol = Symbol });            
         }
+        navigationManager.NavigateTo("set");
         await jsRuntime.ToastrSuccess(string.Empty);
         IsLoading = false;
     }

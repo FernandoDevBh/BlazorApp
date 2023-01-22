@@ -1,14 +1,14 @@
-﻿@page "/category/create"
-@page "/category/edit/{id:int}"
+﻿@page "/set/create"
+@page "/set/edit/{id:int}"
 
-@inject ICategoryViewModel CategoryVM
+@inject ISetViewModel CategoryVM
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
 <StateContainer ViewModel="CategoryVM" Name="CategoryVM">
     <Loading Show="CategoryVM.IsLoading"/>
     <div class="p-10">
-        <h4 class="text-2xl text-indigo-700 p-2">@CategoryVM.Title Collection</h4>    
-        <CategoryForm />
+        <h4 class="text-2xl text-indigo-700 p-2">@CategoryVM.Title Set</h4>    
+        <SetForm />
     </div>
 </StateContainer>
 

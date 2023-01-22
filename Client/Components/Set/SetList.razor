@@ -7,12 +7,12 @@
 <div class="w-full mb-8 overflow-hidden flex items-center">
     <div class="p-10 divide-y divide-indigo-700 flex-grow">
         <div class="w-full">
-            <h4 class="text-2xl text-indigo-700 p-2">Collections List</h4>
+            <h4 class="text-2xl text-indigo-700 p-2">Sets List</h4>
         </div>
-        <div class="p-2 grid grid-cols-1 gap-4">        
-            <NavLink href="category/create" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out max-w-[150px]">
-                <span>New Collection</span>
-            </NavLink>
+        <div class="p-2 grid grid-cols-1 gap-4">
+            <div class="w-28">
+                <Button primary IsLink="true" id="category-submit" type="submit" Label="New Set" href="set/create" />
+            </div>
             @if (CategoriesVM.Categories.Any())
             {
                 <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
@@ -21,7 +21,7 @@
                         <span>@context.Name</span>
                     </TemplateColumn>                    
                     <TemplateColumn Title="Actions">
-                        <Button rounded info IsLink="true" Label="Edit" href="@($"category/edit/{context.Id}")" />
+                        <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
                         <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
                     </TemplateColumn>
                 </QuickGrid>
@@ -44,5 +44,5 @@
 
 @code {
     [CascadingParameter(Name = "CategoriesVM")]
-    public ICategoryListViewModel CategoriesVM { get; set; } = null!;    
+    public ISetListViewModel CategoriesVM { get; set; } = null!;    
 }

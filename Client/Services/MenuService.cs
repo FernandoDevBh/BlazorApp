@@ -9,15 +9,15 @@ public class MenuService : IMenuService
     {
         return new List<MenuItem>
         {
-            CreateMenuItem(title : "Categories", icon: "LayoutTextSidebarReverse", navigateTo: "category"),
-            CreateMenuItem(title : "Dashboard", icon: "DashboardFill"),
-            CreateMenuItem(title : "Pages", icon: "AiOutlineFileText"),
-            CreateMenuItem(title : "Media", icon: "FileImageFill"),            
+            CreateMenuItem(title : "Sets", icon: "LayoutTextSidebarReverse", navigateTo: "set"),
+            CreateMenuItem(title : "Cards", icon: "FileImageFill"),
+            /*CreateMenuItem(title : "Dashboard", icon: "DashboardFill"),
+            CreateMenuItem(title : "Pages", icon: "AiOutlineFileText"),            
             CreateMenuItem(title: "Analytics", icon: "AiOutLineBarChart"),
             CreateMenuItem(title: "Inbox", icon: "AiOutlineMail"),
             CreateMenuItem(title: "Profile", icon: "BsPerson"),
             CreateMenuItem(title : "Settings", icon: "AiOutlineSetting"),
-            CreateMenuItem(title : "Logout", icon: "AiOutlineLogout", navigateTo: "logout"),
+            CreateMenuItem(title : "Logout", icon: "AiOutlineLogout", navigateTo: "logout"),*/
         };
     }
 

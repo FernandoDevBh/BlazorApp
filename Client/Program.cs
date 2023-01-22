@@ -3,7 +3,7 @@ using Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Client.Components.Navigation.Menu.Extensions;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Client.Pages.Category.ViewModels;
+using Client.Pages.Set.ViewModels;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

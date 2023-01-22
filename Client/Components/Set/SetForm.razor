@@ -24,7 +24,7 @@
             </div>
             <div class="col">
                 <Button success id="category-submit" type="submit" Label="@CategoryVM.Title" />
-                <Button light IsLink="true" href="category" Label="Back to Index" />
+                <Button light IsLink="true" href="set" Label="Back to Index" />
             </div>
         </EditForm>
     </div>
@@ -32,5 +32,5 @@
 
 @code {
     [CascadingParameter(Name = "CategoryVM")]
-    public ICategoryViewModel CategoryVM { get; set; } = null!;    
+    public ISetViewModel CategoryVM { get; set; } = null!;    
 }

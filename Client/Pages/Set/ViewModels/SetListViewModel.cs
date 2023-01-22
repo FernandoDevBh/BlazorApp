@@ -3,9 +3,9 @@ using Client.Services.Contracts;
 using Microsoft.AspNetCore.Components.QuickGrid;
 using Microsoft.JSInterop;
 
-namespace Client.Pages.Category.ViewModels;
+namespace Client.Pages.Set.ViewModels;
 
-public class CategoryListViewModel : BaseViewModel, ICategoryListViewModel
+public class SetListViewModel : BaseViewModel, ISetListViewModel
 {
     private bool isLoading = false;
     private int deleteCategoryId = 0;
@@ -15,7 +15,7 @@ public class CategoryListViewModel : BaseViewModel, ICategoryListViewModel
     private readonly ICategoryService service;
     private readonly IJSRuntime jSRuntime;
 
-    public CategoryListViewModel(ICategoryService service, IJSRuntime jSRuntime)
+    public SetListViewModel(ICategoryService service, IJSRuntime jSRuntime)
     {
         this.service = service;
         this.jSRuntime = jSRuntime;
