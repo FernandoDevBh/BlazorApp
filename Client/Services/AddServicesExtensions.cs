@@ -9,7 +9,8 @@ public static class AddServicesExtensions
     {
         services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
-        services.AddScoped<ICategoryService, SetService>();
+        services.AddScoped<ISetService, SetService>();
+        services.AddScoped<ICardService, CardService>();
         return services;
     }
 }

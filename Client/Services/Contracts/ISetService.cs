@@ -1,6 +1,6 @@
 ﻿namespace Client.Services.Contracts;
 
-public interface ICategoryService
+public interface ISetService
 {
     Task<CategoryDTO> Create(CategoryDTO category);
     Task<ICollection<CategoryDTO>> GetAll();

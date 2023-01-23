@@ -10,7 +10,7 @@ public class MenuService : IMenuService
         return new List<MenuItem>
         {
             CreateMenuItem(title : "Sets", icon: "LayoutTextSidebarReverse", navigateTo: "set"),
-            CreateMenuItem(title : "Cards", icon: "FileImageFill"),
+            CreateMenuItem(title : "Cards", icon: "FileImageFill", navigateTo: "card"),
             /*CreateMenuItem(title : "Dashboard", icon: "DashboardFill"),
             CreateMenuItem(title : "Pages", icon: "AiOutlineFileText"),            
             CreateMenuItem(title: "Analytics", icon: "AiOutLineBarChart"),

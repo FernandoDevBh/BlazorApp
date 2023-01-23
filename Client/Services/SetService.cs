@@ -2,7 +2,7 @@
 
 namespace Client.Services;
 
-public class SetService : ICategoryService
+public class SetService : ISetService
 {    
     private readonly HttpClient httpClient;
 

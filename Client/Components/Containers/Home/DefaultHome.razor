@@ -9,7 +9,7 @@
         </div>
         <div class="p-2 grid grid-cols-1 gap-4">
             <div class="w-28">
-                <Button primary IsLink="true" id="category-submit" type="submit" Label="New Set" href="@CreateHrf" />
+                <Button primary IsLink="true" id="category-submit" type="submit" Label="@CreateButtonLabel" href="@CreateHrf" />
             </div>
             @if(ChildContent != null)
             {
@@ -31,6 +31,9 @@
 
     [Parameter]
     public bool IsDeleteModalActive { get; set; } = false;
+
+    [Parameter]
+    public string CreateButtonLabel { get; set; } = string.Empty;
 
     [Parameter]
     public required EventCallback<bool> DeleteConfirmationChanged { get; set; }

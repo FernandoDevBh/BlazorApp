@@ -1,0 +1,29 @@
+﻿<DefaultHome IsDeleteModalActive="CardListVM .ShowDeleteModal"
+             IsLoading="CardListVM .IsLoading"
+             ListName="Card List"
+             CreateHrf="card/create"
+             CreateButtonLabel="new card"
+             DeleteConfirmationChanged="CardListVM.DeleteConfirmation"
+>
+    <QuickGrid Items="@CardListVM.Cards" Pagination="@CardListVM.Pagination">
+        <PropertyColumn Property="@(c => c.Name)" Title="Name" Sortable="true" />
+        <TemplateColumn Title="Shop Favorites">
+            <input type="checkbox" disabled checked="@context.ShopFavorites" />
+        </TemplateColumn>
+        <TemplateColumn Title="Customer Favorites">
+            <input type="checkbox" disabled checked="@context.CustomerFavorites" />
+        </TemplateColumn>
+        <PropertyColumn Property="@(c => c.Category.Name)" Title="Set" Sortable="true" />
+        <TemplateColumn Title="Actions">
+            <Button rounded info IsLink="true" Label="Edit" href="@($"card/edit/{context.Id}")" />
+            <Button rounded success IsLink="true" Label="Edit" href="@($"card/price/{context.Id}")" />
+            <Button rounded danger Label="Delete" @onclick="() => CardListVM.Delete(context.Id)" />            
+        </TemplateColumn>
+    </QuickGrid>
+    <Paginator Value="@CardListVM.Pagination" />
+</DefaultHome>
+
+@code {
+    [CascadingParameter(Name = "CardListVM")]
+    public ICardListVM CardListVM { get; set; } = null!;
+}

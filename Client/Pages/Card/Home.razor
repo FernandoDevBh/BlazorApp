@@ -1,0 +1,17 @@
+﻿@page "/card"
+
+@inject ICardListVM CardListVM
+
+<StateContainer ViewModel="CardListVM" Name="CardListVM">
+    <CardList />
+</StateContainer>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await CardListVM.LoadCards();
+        }
+    }
+}

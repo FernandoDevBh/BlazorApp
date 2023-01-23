@@ -12,10 +12,10 @@ public class SetListViewModel : BaseViewModel, ISetListViewModel
     private bool showDeleteModal = false;
     private IQueryable<CategoryDTO> categories = new List<CategoryDTO>(0).AsQueryable();
     private PaginationState pagination = new PaginationState { ItemsPerPage = 8 };
-    private readonly ICategoryService service;
+    private readonly ISetService service;
     private readonly IJSRuntime jSRuntime;
 
-    public SetListViewModel(ICategoryService service, IJSRuntime jSRuntime)
+    public SetListViewModel(ISetService service, IJSRuntime jSRuntime)
     {
         this.service = service;
         this.jSRuntime = jSRuntime;

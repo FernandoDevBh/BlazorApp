@@ -15,10 +15,10 @@ public class SetViewModel : BaseViewModel, ISetViewModel
     private string title = "Create";
     private bool isLoading = false;
     private readonly IJSRuntime jsRuntime;
-    private readonly ICategoryService categoryService;
+    private readonly ISetService categoryService;
     private readonly NavigationManager navigationManager;
 
-    public SetViewModel(ICategoryService categoryService, NavigationManager navigationManager, IJSRuntime jSRuntime)
+    public SetViewModel(ISetService categoryService, NavigationManager navigationManager, IJSRuntime jSRuntime)
     {
         this.categoryService = categoryService;
         this.navigationManager = navigationManager;
