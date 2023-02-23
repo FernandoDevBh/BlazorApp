@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Client.Components.Buttons;
+namespace Client.Shared.Components.Buttons;
 
 public abstract class ButtonBaseComponent : ComponentBase
 {

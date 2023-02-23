@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using System.Text.Json;
 
 namespace Client.Helper
 {
@@ -17,15 +16,12 @@ namespace Client.Helper
                 Dictionary<string, object> keyValuePairs = jsonBytes.Deserialize<Dictionary<string, object>>();
                 if(keyValuePairs != null && keyValuePairs.Any())
                 {
-                    foreach( var kvp in keyValuePairs )
+                    foreach (var kvp in keyValuePairs)
                     {
-                        string claimValue = string.Empty;
-
-                        if(kvp.Value != null)
-                            claimValue = kvp.Value.ToString();
-
+                        object value = kvp.Value ?? new();
+                        string claimValue = $"{value}";
                         claims.Add(new(kvp.Key, claimValue));
-                    }                
+                    }
                 }
             }
             return claims;

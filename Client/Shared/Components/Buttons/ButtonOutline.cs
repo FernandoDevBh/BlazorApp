@@ -1,4 +1,4 @@
-﻿namespace Client.Components.Buttons;
+﻿namespace Client.Shared.Components.Buttons;
 
 public enum ButtonOutline
 {

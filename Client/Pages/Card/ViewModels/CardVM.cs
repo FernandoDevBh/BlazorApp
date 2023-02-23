@@ -1,5 +1,4 @@
-﻿using Client.Components.Containers.Load;
-using Client.Containers.State;
+﻿using Client.Containers.State;
 using Client.Services.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -9,7 +8,6 @@ namespace Client.Pages.Card.ViewModels;
 
 public class CardVM : BaseViewModel
 {
-    private string title = "Create";
     private bool isLoading = false;
 
     private int id;
