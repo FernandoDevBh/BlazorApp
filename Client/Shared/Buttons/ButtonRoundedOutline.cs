@@ -1,6 +1,6 @@
-﻿namespace Client.Shared.Components.Buttons;
+﻿namespace Client.Shared.Buttons;
 
-public enum ButtonOutline
+public enum ButtonRoundedOutline
 {
     Primary = 0,
     Secondary = 1,

@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./pages/**/*.{razor,html,cshtml}",
     "./components/**/*.{razor,html,cshtml}",
+    "./Shared/**/*.{razor, html, cshtml}",
     "./wwwroot/index.html"
   ],
   theme: {

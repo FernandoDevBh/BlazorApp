@@ -1,6 +1,6 @@
-﻿namespace Client.Shared.Components.Buttons;
+﻿namespace Client.Shared.Buttons;
 
-public enum ButtonStyle
+public enum ButtonRounded
 {
     Primary = 0,
     Secondary = 1,
@@ -9,6 +9,5 @@ public enum ButtonStyle
     Warning = 4,
     Info = 5,
     Light = 6,
-    Dark = 7,
-    Link = 8
+    Dark = 7    
 }

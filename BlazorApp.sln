@@ -19,6 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Icons", "Client.Icon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{1651BFC1-604D-452F-BC44-26BF5E2BD2C2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db-container", "db-container", "{B935C2B5-B8F2-47C0-928B-43180FA230AA}"
+	ProjectSection(SolutionItems) = preProject
+		db-container\docker-compose.local.yml = db-container\docker-compose.local.yml
+		db-container\docker-compose.yml = db-container\docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
