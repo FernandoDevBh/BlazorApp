@@ -8,16 +8,7 @@ public class MenuService : IMenuService
     public List<MenuItem> GetMenus()
     {
         return new List<MenuItem>
-        {
-            CreateMenuItem(title : "Sets", icon: "LayoutTextSidebarReverse", navigateTo: "set"),
-            CreateMenuItem(title : "Cards", icon: "FileImageFill", navigateTo: "card"),
-            /*CreateMenuItem(title : "Dashboard", icon: "DashboardFill"),
-            CreateMenuItem(title : "Pages", icon: "AiOutlineFileText"),            
-            CreateMenuItem(title: "Analytics", icon: "AiOutLineBarChart"),
-            CreateMenuItem(title: "Inbox", icon: "AiOutlineMail"),
-            CreateMenuItem(title: "Profile", icon: "BsPerson"),
-            CreateMenuItem(title : "Settings", icon: "AiOutlineSetting"),
-            */
+        {            
             CreateMenuItem(title : "Logout", icon: "AiOutlineLogout", navigateTo: "logout"),
         };
     }

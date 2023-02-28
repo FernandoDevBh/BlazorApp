@@ -1,24 +1,22 @@
 ﻿using Client.Containers.State;
 using Client.Services.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 
 namespace Client.Pages.Card.ViewModels;
 
-public class CardVM : BaseViewModel
+public class CardVM : BaseViewModel, ICardVM
 {
     private bool isLoading = false;
-
+    private string title = "Create";
     private int id;
     private string name;
-    private string description;
-    private bool shopFavorites;
-    private bool customerFavorites;
-    private string color;
-    private string imageUrl;
+    private int number;
+    private bool inMyCollection;
+    private string image;
     private int categoryId;
-    private ICollection<ProductPriceDTO> productPrices;
 
     private readonly IJSRuntime jsRuntime;
     private readonly ICardService cardService;
@@ -28,110 +26,104 @@ public class CardVM : BaseViewModel
     {
         this.jsRuntime = jsRuntime;
         this.cardService = cardService;
-        this.navigationManager = navigationManager;        
+        this.navigationManager = navigationManager;
+        title = "Create";
         name = string.Empty;
-        description = string.Empty;
-        color = string.Empty;
-        imageUrl = string.Empty;
-        productPrices = new HashSet<ProductPriceDTO>();
+        image = string.Empty;
     }
 
-    public bool IsLoading
-    {
-        get => isLoading;
-        set => SetValue(ref isLoading, value);
-    }
+    public bool IsLoading { get => isLoading; set => SetValue(ref isLoading, value); }
+    public int Id { get => id; set => SetValue(ref id, value); }
 
-    public int Id
-    {
-        get => id;
-        set => SetValue(ref id, value);
-    }
+    [Required()]
+    public string Name { get => name; set => SetValue(ref name, value); }
 
-    public string Name
-    {
-        get => name;
-        set => SetValue(ref name, value);
-    }
+    [Required()]
+    public int CategoryId { get => categoryId; set => SetValue(ref categoryId, value); }
+    public bool InMyCollection { get => inMyCollection; set => SetValue(ref inMyCollection, value); }
 
-    public string Description
-    {
-        get => description;
-        set => SetValue(ref description, value);
-    }
+    [Required()]
+    [Range(1, int.MaxValue, ErrorMessage = "Card Number is required")]
+    public int Number { get => number; set => SetValue(ref number, value); }
 
-    public bool ShopFavorites
-    {
-        get => shopFavorites;
-        set => SetValue(ref shopFavorites, value);
-    }
+    [Required()]
+    public string Image { get => image; set => SetValue(ref image, value); }
+    public string Title { get => title; set => SetValue(ref title, value); }
 
-    public bool CustomerFavorites
-    {
-        get => customerFavorites;
-        set => SetValue(ref customerFavorites, value);
-    }
-
-    public string Color
-    {
-        get => color;
-        set => SetValue(ref color, value);
-    }
-
-    public string ImageUrl
-    {
-        get => imageUrl;
-        set => SetValue(ref imageUrl, value);
-    }
-
-    public int CategoryId
-    {
-        get => categoryId;
-        set => SetValue(ref categoryId, value);
-    }
-
-    public ICollection<ProductPriceDTO> ProductPrices
-    {
-        get => productPrices;
-        set => SetValue(ref productPrices, value);
-    }
-
-    public async Task LoadCategory()
+    public async Task LoadCard()
     {
         IsLoading = true;
-        Reset();
-        Name = string.Empty;
+        Reset();        
         if (Id == 0)
         {
             IsLoading = false;
         }
         else
         {
-            var card = await cardService.GetCardByIdAsync(Id);
-            Id = card.Id;
-            CategoryId = card.CategoryId;
-            
-            if(!string.IsNullOrEmpty(card.Name)) Name = card.Name;
-            if(!string.IsNullOrEmpty(card.Description)) Description = card.Description;
-            if(!string.IsNullOrEmpty(card.Color)) Color = card.Color;
-            if (!string.IsNullOrEmpty(card.ImageUrl)) ImageUrl = card.ImageUrl;
-
-            ShopFavorites = card.ShopFavorites;
-            CustomerFavorites = card.CustomerFavorites;                        
-            ProductPrices = card.ProductPrices;
+            var card = await cardService.GetCardByIdAsync(CategoryId,Id);
+            Id = card.Id;            
+            Name = card.Name!;
+            InMyCollection = card.InMyCollection;
+            Number = card.Number;
+            Image = card.Image!;
+            IsLoading = false;
         }
     }
 
     private void Reset()
-    {
-        Id = 0;
-        CategoryId = 0;
+    {        
+        title = "Create";
+
+        if(Id > 0)        
+            title = "Edit";
+        
         Name = string.Empty;
-        Description = string.Empty;
-        ShopFavorites = false;
-        CustomerFavorites = false;
-        Color = string.Empty;
-        ImageUrl = string.Empty;
-        ProductPrices = new HashSet<ProductPriceDTO>();
+        InMyCollection = false;
+        Number = 0;
+        Image = string.Empty;
+    }
+
+    public async Task UpsertCard()
+    {
+        IsLoading = true;
+        if (Id == 0)
+        {
+            await cardService.AddCardAsync(new()
+            {
+                CategoryId = CategoryId,
+                Name = Name,
+                Image = Image,
+                InMyCollection = InMyCollection,
+                Number = Number,
+            });
+        }
+        else
+        {
+            await cardService.UpdateCardAsync(new()
+            {
+                Id = Id,
+                Name = Name,                
+                Image = Image,
+                InMyCollection = InMyCollection,
+                Number = Number,
+                CategoryId = CategoryId,
+            });
+        }
+        navigationManager.NavigateTo($"card/{CategoryId}");        
+        IsLoading = false;
+        await jsRuntime.ToastrSuccess("Card process with success");
+        Reset();
+    }
+
+    public async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            Image = await ImageHelper.GetImageDataAsync(e);
+        }
+        catch (Exception exception)
+        {
+            await jsRuntime.ToastrError(exception.Message);
+        }
     }
 }

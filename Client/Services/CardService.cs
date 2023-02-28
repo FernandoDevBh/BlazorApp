@@ -11,9 +11,9 @@ public class CardService : ICardService
         this.httpClient = httpClient;
     }
 
-    public async Task<ICollection<ProductDTO>> GetAllCardsAsync()
+    public async Task<ICollection<ProductDTO>> GetAllCardsAsync(int categoryId)
     {
-        var response = await httpClient.GetAsync("product");
+        var response = await httpClient.GetAsync($"product/{categoryId}");
         var responseContent = await response.Content.ReadAsStringAsync();
         var responseDTO = responseContent.DeserializeObject<ICollection<ProductDTO>>();
 
@@ -23,9 +23,9 @@ public class CardService : ICardService
             throw new Exception("Error on GetAllCardsAsync");
     }
 
-    public async Task<ProductDTO> GetCardByIdAsync(int id)
+    public async Task<ProductDTO> GetCardByIdAsync(int setId, int id)
     {
-        var response = await httpClient.GetAsync($"product/{id}");
+        var response = await httpClient.GetAsync($"product/{setId}/{id}");
         var responseContent = await response.Content.ReadAsStringAsync();
         var responseDTO = responseContent.DeserializeObject<ProductDTO>();
 

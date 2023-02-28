@@ -5,31 +5,33 @@
     CreateHrf="set/create"
     CreateButtonLabel="new set"
     DeleteConfirmationChanged="CategoriesVM.DeleteConfirmation">
-    @if (CategoriesVM.Categories.Any())
-    {
-        <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
-            <TemplateColumn Title="Name" Class="flex gap-2">
-                <img class="w-6 h-6" src="@context.Symbol">
-                <span>@context.Name</span>
-            </TemplateColumn>
-            <TemplateColumn Title="Actions">
-                <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
-                <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
-            </TemplateColumn>
-        </QuickGrid>
-        <Paginator Value="@CategoriesVM.Pagination" />
-    }
-    else
-    {
-        if (CategoriesVM.IsLoading)
+    <Body>
+        @if (CategoriesVM.Categories.Any())
         {
-            <Loading Show="CategoriesVM.IsLoading" />
+            <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
+                <TemplateColumn Title="Name" Class="flex gap-2">
+                    <img class="w-6 h-6" src="@context.Symbol">
+                    <NavLink class="cursor-pointer" href="@($"/card/{context.Id}")">@context.Name</NavLink>
+                </TemplateColumn>
+                <TemplateColumn Title="Actions">
+                    <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
+                    <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
+                </TemplateColumn>
+            </QuickGrid>
+            <Paginator Value="@CategoriesVM.Pagination" />
         }
         else
         {
-            <p>No records found!</p>
+            if (CategoriesVM.IsLoading)
+            {
+                <Loading Show="CategoriesVM.IsLoading" />
+            }
+            else
+            {
+                <p>No records found!</p>
+            }
         }
-    }
+    </Body>
 </DefaultHome>
 
 @code {

@@ -80,31 +80,9 @@ public class SetViewModel : BaseViewModel, ISetViewModel
 
     public async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
-        var extensions = new List<string>(3) { ".jpg", ".png", ".jpeg", ".webp" };
-        Symbol = string.Empty;
         try
         {
-            var files = e.GetMultipleFiles()
-                         .Select(f => new { File = f, FileInfo = new FileInfo(f.Name) });
-
-            if (files.Any())
-            {
-                foreach (var item in files)
-                {
-                    if (extensions.Contains(item.FileInfo.Extension.ToLower()))
-                    {
-                        IBrowserFile imgFile = item.File;
-                        var buffers = new byte[imgFile.Size];
-                        await imgFile.OpenReadStream().ReadAsync(buffers);
-                        string imageType = imgFile.ContentType;
-                        Symbol = $"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
-                    }
-                    else
-                    {
-                        await jsRuntime.ToastrError("Please select .jpg/ .jpeg/ .webp/ .png file only");
-                    }
-                }
-            }
+            Symbol = await ImageHelper.GetImageDataAsync(e);
         }
         catch (Exception exception)
         {

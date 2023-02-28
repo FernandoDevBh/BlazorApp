@@ -1,0 +1,36 @@
+﻿@page "/card/create/{categoryId:int}"
+@page "/card/edit/{categoryId:int}/{productId:int}"
+
+@inject ICardVM CardVM
+@attribute [Authorize(Roles = SD.Role_Admin)]
+
+<StateContainer ViewModel="CardVM" Name="CardVM">
+    <Upsert Title="@($"{CardVM.Title} Card")">
+        <CardForm />
+        <Loading Show="CardVM.IsLoading" />
+    </Upsert>
+</StateContainer>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [Parameter]
+    public int CategoryId { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine(CardVM.CategoryId);
+        if (firstRender)
+        {
+            await CardVM.LoadCard();
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        CardVM.CategoryId = CategoryId;
+        CardVM.Id = ProductId;
+    }
+}

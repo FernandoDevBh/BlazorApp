@@ -7,18 +7,22 @@ namespace Client.Pages.Card.ViewModels;
 
 public class CardListVM : BaseViewModel, ICardListVM
 {
+    private int setId;
     private bool isLoading;
     private int deleteId;
     private bool showDeleteModal;
+    private string setName = string.Empty;
     private readonly IJSRuntime jSRuntime;
     private readonly ICardService cardService;
-    private IQueryable<ProductDTO> cards = new List<ProductDTO>(0).AsQueryable();
-    private PaginationState pagination = new PaginationState { ItemsPerPage = 8 };
+    private readonly ISetService setService;
+    private IQueryable<ProductDTO> cards = new List<ProductDTO>(0).AsQueryable();    
 
-    public CardListVM(IJSRuntime jSRuntime, ICardService cardService)
+
+    public CardListVM(IJSRuntime jSRuntime, ICardService cardService, ISetService setService)
     {
         this.jSRuntime = jSRuntime;
         this.cardService = cardService;
+        this.setService = setService;
     }
 
     public bool IsLoading
@@ -31,19 +35,15 @@ public class CardListVM : BaseViewModel, ICardListVM
     {
         get => cards;
         private set => SetValue(ref cards, value);
-    }
-
-    public PaginationState Pagination
-    {
-        get => pagination;
-        private set => SetValue(ref pagination, value);
-    }
+    }    
 
     public bool ShowDeleteModal
     {
         get => showDeleteModal;
         private set => SetValue(ref showDeleteModal, value);
     }
+    public int SetId { get => setId; set => SetValue(ref setId, value); }
+    public string SetName { get => setName; set => SetValue(ref setName, value); }
 
     public void SetIsLoading() => IsLoading = !IsLoading;
 
@@ -56,7 +56,9 @@ public class CardListVM : BaseViewModel, ICardListVM
     public async Task LoadCards()
     {
         IsLoading = true;
-        Cards = (await cardService.GetAllCardsAsync()).AsQueryable();
+        var set = await setService.GetById(SetId);
+        SetName = $"Card List {set.Name}";
+        Cards = (await cardService.GetAllCardsAsync(SetId)).AsQueryable();
         IsLoading = false;
     }
 

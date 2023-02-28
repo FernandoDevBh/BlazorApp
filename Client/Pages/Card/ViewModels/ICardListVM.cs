@@ -5,9 +5,10 @@ namespace Client.Pages.Card.ViewModels;
 
 public interface ICardListVM : IViewModel
 {
+    int SetId {  get; set; }
+    string SetName { get; set; }
     bool IsLoading { get; }
-    bool ShowDeleteModal { get; }
-    PaginationState Pagination { get; }
+    bool ShowDeleteModal { get; }    
     void Delete(int id);        
     Task LoadCards();
     void SetIsLoading();

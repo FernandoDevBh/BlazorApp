@@ -2,8 +2,8 @@
 
 public interface ICardService
 {
-    Task<ICollection<ProductDTO>> GetAllCardsAsync();
-    Task<ProductDTO> GetCardByIdAsync(int id);
+    Task<ICollection<ProductDTO>> GetAllCardsAsync(int categoryId);
+    Task<ProductDTO> GetCardByIdAsync(int setId, int id);
     Task<ProductDTO> AddCardAsync(ProductDTO card);
     Task<ProductDTO> UpdateCardAsync(ProductDTO card);    
     Task<bool> DeleteCardAsync(int id);

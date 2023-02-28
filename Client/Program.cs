@@ -1,10 +1,10 @@
 using Client;
 using Client.Services;
 using Client.Pages.Set.ViewModels;
-using Client.Pages.Card.ViewModels;
 using Microsoft.AspNetCore.Components.Web;
 using Client.Components.Navigation.Menu.Extensions;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Client.Pages.Card;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

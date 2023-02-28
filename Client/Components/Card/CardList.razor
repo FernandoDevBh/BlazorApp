@@ -1,29 +1,46 @@
-﻿<DefaultHome IsDeleteModalActive="CardListVM .ShowDeleteModal"
-             IsLoading="CardListVM .IsLoading"
-             ListName="Card List"
-             CreateHrf="card/create"
+﻿<DefaultHome IsDeleteModalActive="CardListVM.ShowDeleteModal"
+             IsLoading="CardListVM.IsLoading"
+             ListName="@CardListVM.SetName"
+             CreateHrf="@createLink"
              CreateButtonLabel="new card"
              DeleteConfirmationChanged="CardListVM.DeleteConfirmation"
 >
-    <QuickGrid Items="@CardListVM.Cards" Pagination="@CardListVM.Pagination">
-        <PropertyColumn Property="@(c => c.Name)" Title="Name" Sortable="true" />
-        <TemplateColumn Title="Shop Favorites">
-            <input type="checkbox" disabled checked="@context.ShopFavorites" />
-        </TemplateColumn>
-        <TemplateColumn Title="Customer Favorites">
-            <input type="checkbox" disabled checked="@context.CustomerFavorites" />
-        </TemplateColumn>
-        <PropertyColumn Property="@(c => c.Category.Name)" Title="Set" Sortable="true" />
-        <TemplateColumn Title="Actions">
-            <Button rounded info IsLink="true" Label="Edit" href="@($"card/edit/{context.Id}")" />
-            <Button rounded success IsLink="true" Label="Edit" href="@($"card/price/{context.Id}")" />
-            <Button rounded danger Label="Delete" @onclick="() => CardListVM.Delete(context.Id)" />            
-        </TemplateColumn>
-    </QuickGrid>
-    <Paginator Value="@CardListVM.Pagination" />
+    <HeaderComplements>
+        <Button light IsLink="true" href="/" Label="Back to Sets" />
+    </HeaderComplements>
+    <Body>
+        <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
+            @foreach(var item in CardListVM.Cards)
+            {
+                <div class="rounded overflow-hidden shadow-lg">
+                    <NavLink href="@($"/card/edit/1/{item.Id}")">
+                        <img class="w-full" src="@item.Image" alt="Mountain">
+                    </NavLink>
+                    <div class="px-6 pt-4 pb-2">
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            #@item.Number
+                        </span>
+                        @if (item.InMyCollection)
+                        {
+                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                                in my collection                                                                                                             
+                            </span>
+                        }                
+                    </div>
+                </div>
+            }
+        </div>
+    </Body>
 </DefaultHome>
 
 @code {
     [CascadingParameter(Name = "CardListVM")]
     public ICardListVM CardListVM { get; set; } = null!;
+
+    private string createLink = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        createLink = $"card/create/{CardListVM.SetId}";
+    }
 }

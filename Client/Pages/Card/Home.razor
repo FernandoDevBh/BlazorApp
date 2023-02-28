@@ -1,4 +1,4 @@
-﻿@page "/card"
+﻿@page "/card/{id:int}"
 
 @inject ICardListVM CardListVM
 
@@ -7,11 +7,19 @@
 </StateContainer>
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await CardListVM.LoadCards();
         }
+    }
+
+    protected override void OnParametersSet()
+    {
+        CardListVM.SetId = Id;
     }
 }

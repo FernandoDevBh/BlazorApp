@@ -39,17 +39,17 @@ public class ProductRepository : IProductRepository
         return await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<ProductDTO>> GetAll()
+    public async Task<IEnumerable<ProductDTO>> GetAll(int categoryId)
     {
-        var items = await _dbContext.Products.Include(e => e.Category).Include(p => p.ProductPrices).ToListAsync();
+        var items = await _dbContext.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
         return _mapper.Map<IEnumerable<ProductDTO>>(items);
     }
 
-    public async Task<ProductDTO> GetById(int id)
+    public async Task<ProductDTO> GetById(int categoryId, int productId)
     {
-        var obj = await _dbContext.Products.Include(e => e.Category).Include(p => p.ProductPrices).SingleOrDefaultAsync(u => u.Id == id);
+        var obj = await _dbContext.Products.SingleOrDefaultAsync(u => u.CategoryId == categoryId && u.Id == productId);
 
-        if (obj == null) return new() { Name = string.Empty, Id = 0, CategoryId = 0, Category = new CategoryDTO { Id= 0, Name = string.Empty } };
+        if (obj == null) return new() { Name = string.Empty, Id = 0, CategoryId = 0 };
 
         return _mapper.Map<ProductDTO>(obj);
     }
@@ -60,12 +60,10 @@ public class ProductRepository : IProductRepository
         if (obj == null) return objDTO;
 
         obj.Name = objDTO.Name;
-        obj.Description = objDTO.Description;
-        obj.ShopFavorites = objDTO.ShopFavorites;
-        obj.CustomerFavorites = objDTO.CustomerFavorites;
-        obj.Color = objDTO.Color;
-        obj.ImageUrl = objDTO.ImageUrl;
+        obj.Number = objDTO.Number;
+        obj.InMyCollection = objDTO.InMyCollection;
         obj.CategoryId = objDTO.CategoryId;
+        obj.Image = objDTO.Image;
 
         _dbContext.Products.Update(obj);
         await _dbContext.SaveChangesAsync();

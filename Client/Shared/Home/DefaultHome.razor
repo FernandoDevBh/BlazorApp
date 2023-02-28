@@ -8,12 +8,16 @@
             <h4 class="text-2xl text-indigo-700 p-2">@ListName</h4>
         </div>
         <div class="p-2 grid grid-cols-1 gap-4">
-            <div class="w-28">
+            <div class="flex w-64 gap-2">
                 <Button primary IsLink="true" id="category-submit" type="submit" Label="@CreateButtonLabel" href="@CreateHrf" />
+                @if (HeaderComplements != null)
+                {
+                    @HeaderComplements
+                }
             </div>
-            @if(ChildContent != null)
+            @if (Body != null)
             {
-                @ChildContent
+                @Body
             }            
         </div>
     </div>
@@ -39,6 +43,9 @@
     public required EventCallback<bool> DeleteConfirmationChanged { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
+    public RenderFragment Body { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment HeaderComplements { get; set; } = null!;
 
 }

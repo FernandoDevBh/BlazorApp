@@ -1,0 +1,49 @@
+﻿<EditForm Model="CardVM" OnValidSubmit="CardVM.UpsertCard" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <DataAnnotationsValidator />
+    <div class="flex gap-5">
+        <div class="flex-grow">
+            <div class="mb-6 flex gap-4">
+                <div class="flex-grow">
+                    <FormInput Id="name" ValidationFor="() => CardVM.Name" Label="Name" @bind-Value="CardVM.Name" />
+                </div>        
+            </div>
+            <div class="mb-6 flex gap-4">
+                <div class="flex-grow">
+                    <label>Card in my collection</label>
+                    <InputCheckbox Id="InMyCollection" @bind-Value="CardVM.InMyCollection" />
+                    <ValidationMessage For="() => CardVM.InMyCollection"/>
+                </div>
+            </div>
+
+            <div class="mb-6 flex gap-4">
+                <div class="flex-grow">
+                    <label>Quantity</label>
+                    <InputNumber Id="name" Label="Name" @bind-Value="CardVM.Number" />
+                    <ValidationMessage For="() => CardVM.Number" />
+                </div>
+            </div>
+
+            <div class="mb-6 flex">
+                <div class="flex-grow">
+                    <label class="block mb-2 text-sm text-gray-600" for="name">Card</label>
+                    <InputFile OnChange="CardVM.HandleImageUpload" class="px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
+                </div>        
+            </div>
+        </div>
+        <div class="flex-none w-48 h-24">
+            @if (!string.IsNullOrEmpty(CardVM.Image))
+            {
+                <img class="w-full" src="@CardVM.Image" alt="Mountain">
+            }
+        </div>
+    </div>
+    <div class="col">
+        <Button success id="category-submit" type="submit" Label="@CardVM.Title" />
+        <Button light IsLink="true" href="@($"/card/{CardVM.CategoryId}")" Label="Back to Cards" />
+    </div>
+</EditForm>
+
+@code {
+    [CascadingParameter(Name = "CardVM")]
+    public ICardVM CardVM { get; set; } = null!;
+}
