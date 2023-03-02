@@ -13,7 +13,7 @@
             @foreach(var item in CardListVM.Cards)
             {
                 <div class="rounded overflow-hidden shadow-lg">
-                    <NavLink href="@($"/card/edit/1/{item.Id}")">
+                    <NavLink href="@($"/card/edit/{CardListVM.SetId}/{item.Id}")">
                         <img class="w-full" src="@item.Image" alt="Mountain">
                     </NavLink>
                     <div class="px-6 pt-4 pb-2">

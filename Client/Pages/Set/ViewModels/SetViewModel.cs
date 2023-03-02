@@ -101,7 +101,7 @@ public class SetViewModel : BaseViewModel, ISetViewModel
         {
             await categoryService.Update(new CategoryDTO { Id = Id, Name = Name, Symbol = Symbol });            
         }
-        navigationManager.NavigateTo("set");
+        navigationManager.NavigateTo("/");
         await jsRuntime.ToastrSuccess(string.Empty);
         IsLoading = false;
     }
