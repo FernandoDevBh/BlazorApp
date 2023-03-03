@@ -16,7 +16,7 @@ public static class DataAccessServices
     public static IServiceCollection AddDataAccessServices
         (this IServiceCollection services, ConfigurationManager configuration, bool useUI = true)
     {
-        services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("Default")));
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(configuration.GetConnectionString("SQLite")));
 
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
