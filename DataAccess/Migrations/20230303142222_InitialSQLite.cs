@@ -311,6 +311,28 @@ namespace DataAccess.Migrations
                 column: "CategoryId");
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,] {
+                    { "02174cf0–9412–4cfe-afbf-59f706d72cf6", "02174cf0–9412–4cfe-afbf-59f706d72cf6", "Admin", "ADMIN" },
+                    { "668F2745-0917-42F8-B817-3B822C2CEB55", "668F2745-0917-42F8-B817-3B822C2CEB55", "Customer", "CUSTOMER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "Discriminator", "Name", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount" },
+                values: new object[,] {
+                    { "ed052c5e-8ebe-4c13-8708-d7cfee6eb57e","ApplicationUser","Admin","admin@dotnet.com","ADMIN@DOTNET.COM","admin@dotnet.com","ADMIN@DOTNET.COM",true,"AQAAAAIAAYagAAAAEL2i1CKkXMXgZ9Lbe43k0M7cfDX4hstSeIePhkWWrQdN5L3YSRE1hCn5d0VXZ2NS4Q==","YAOSXSRGNJ2OJY7XOCSJ2HBDBA6FYUCW","82a51842-9548-4fb4-b985-4906849d1acd","31988993365",false,false, null, true,0 },
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[,] {
+                    { "ed052c5e-8ebe-4c13-8708-d7cfee6eb57e","02174cf0–9412–4cfe-afbf-59f706d72cf6" },
+                });
+
+            migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name", "CreatedDate", "Symbol" },
                 values: new object[,] {
