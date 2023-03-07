@@ -1,30 +1,29 @@
-﻿<DefaultHome
-    IsDeleteModalActive="CategoriesVM.ShowDeleteModal"
-    IsLoading="CategoriesVM.IsLoading"
-    ListName="Set List"
-    CreateHrf="set/create"
-    CreateButtonLabel="new set"
-    DeleteConfirmationChanged="CategoriesVM.DeleteConfirmation">
+﻿<DefaultHome IsDeleteModalActive="SetsVM.ShowDeleteModal"
+             IsLoading="SetsVM.IsLoading"
+             ListName="Set List"
+             CreateHrf="set/create"
+             CreateButtonLabel="new set"
+             DeleteConfirmationChanged="SetsVM.DeleteConfirmation">
     <Body>
-        @if (CategoriesVM.Categories.Any())
+        @if (SetsVM.Categories.Any())
         {
-            <QuickGrid Items="@CategoriesVM.Categories" Pagination="@CategoriesVM.Pagination">
+            <QuickGrid Items="@SetsVM.Categories" Pagination="@SetsVM.Pagination">
                 <TemplateColumn Title="Name" Class="flex gap-2">
                     <img class="w-6 h-6" src="@context.Symbol">
                     <NavLink class="cursor-pointer" href="@($"/card/{context.Id}")">@context.Name</NavLink>
                 </TemplateColumn>
                 <TemplateColumn Title="Actions">
                     <Button rounded info IsLink="true" Label="Edit" href="@($"set/edit/{context.Id}")" />
-                    <Button rounded danger Label="Delete" @onclick="() => CategoriesVM.Delete(context.Id)" />
+                    <Button rounded danger Label="Delete" @onclick="() => SetsVM.Delete(context.Id)" />
                 </TemplateColumn>
             </QuickGrid>
-            <Paginator Value="@CategoriesVM.Pagination" />
+            <Paginator Value="@SetsVM.Pagination" />
         }
         else
         {
-            if (CategoriesVM.IsLoading)
+            if (SetsVM.IsLoading)
             {
-                <Loading Show="CategoriesVM.IsLoading" />
+                <Loading Show="SetsVM.IsLoading" />
             }
             else
             {
@@ -35,6 +34,6 @@
 </DefaultHome>
 
 @code {
-    [CascadingParameter(Name = "CategoriesVM")]
-    public ISetListViewModel CategoriesVM { get; set; } = null!;    
+    [CascadingParameter(Name = "SetsVM")]
+    public ISetListViewModel SetsVM { get; set; } = null!;
 }

@@ -1,12 +1,12 @@
-﻿<EditForm Model="CategoryVM" OnValidSubmit="CategoryVM.UpsertCategory" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+﻿<EditForm Model="SetVM" OnValidSubmit="SetVM.UpsertCategory" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <DataAnnotationsValidator />                
     <div class="mb-6 flex gap-4">
         <div class="flex-grow">
-            <FormInput Id="name" ValidationFor="() => CategoryVM.Name" Label="Name" @bind-Value="CategoryVM.Name" />                    
+            <FormInput Id="name" ValidationFor="() => SetVM.Name" Label="Name" @bind-Value="SetVM.Name" />
         </div>
-        @if (!string.IsNullOrEmpty(CategoryVM.Symbol))
+        @if (!string.IsNullOrEmpty(SetVM.Symbol))
         {
-            <img class="w-12 h-12 mt-6" src="@CategoryVM.Symbol">
+            <img class="w-12 h-12 mt-6" src="@SetVM.Symbol">
         }                
     </div>
     <div class="mb-6">                
@@ -16,17 +16,17 @@
         >
             Symbol
         </label>
-        <InputFile OnChange="CategoryVM.HandleImageUpload"
+        <InputFile OnChange="SetVM.HandleImageUpload"
             class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md  focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
         />
     </div>
     <div class="col">
-        <Button success id="category-submit" type="submit" Label="@CategoryVM.Title" />
+        <Button success id="category-submit" type="submit" Label="@SetVM.Title" />
         <Button light IsLink="true" href="/" Label="Back to Index" />
     </div>
 </EditForm>
 
 @code {
-    [CascadingParameter(Name = "CategoryVM")]
-    public ISetViewModel CategoryVM { get; set; } = null!;    
+    [CascadingParameter(Name = "SetVM")]
+    public ISetViewModel SetVM { get; set; } = null!;
 }

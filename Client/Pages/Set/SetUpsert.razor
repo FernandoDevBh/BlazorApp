@@ -1,13 +1,13 @@
 ﻿@page "/set/create"
 @page "/set/edit/{id:int}"
 
-@inject ISetViewModel CategoryVM
+@inject ISetViewModel SetVM
 @attribute [Authorize(Roles = SD.Role_Admin)]
 
-<StateContainer ViewModel="CategoryVM" Name="CategoryVM">
-    <Upsert Title="@($"{CategoryVM.Title} Set")">
+<StateContainer ViewModel="SetVM" Name="SetVM">
+    <Upsert Title="@($"{SetVM.Title} Set")">
         <SetForm />
-        <Loading Show="CategoryVM.IsLoading" />
+        <Loading Show="SetVM.IsLoading" />
     </Upsert>
 </StateContainer>
 
@@ -19,12 +19,12 @@
     {
         if (firstRender)
         {
-            await CategoryVM.LoadCategory();
+            await SetVM.LoadCategory();
         }
     }    
 
     protected override void OnParametersSet()
     {
-        CategoryVM.Id = Id;
+        SetVM.Id = Id;
     }
 }

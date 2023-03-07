@@ -1,6 +1,6 @@
-﻿@inject ISetListViewModel CategoriesVM
+﻿@inject ISetListViewModel SetsVM
 
-<StateContainer ViewModel="CategoriesVM" Name="CategoriesVM">
+<StateContainer ViewModel="SetsVM" Name="SetsVM">
     <SetList />
 </StateContainer>
 
@@ -9,7 +9,7 @@
     {
         if (firstRender)
         {
-            await CategoriesVM.LoadCategories();
+            await SetsVM.LoadCategories();
         }
     }
 }
